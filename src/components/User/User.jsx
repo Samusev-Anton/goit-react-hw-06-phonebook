@@ -1,19 +1,28 @@
 import React from 'react';
 import propTypes from 'prop-types';
-// import { nanoid } from 'nanoid';
 import { UserList, UserName } from './User.styled';
-// let id = nanoid();
+import { useSelector, useDispatch } from 'react-redux';
+import { removeContact } from 'components/Form/formSlice';
 
-const User = ({ filter, onDeleteItem }) => {
-  // console.log(filter);
+const User = () => {
+  const contacts = useSelector(state => state.contacts);
+  const input = useSelector(state => state.filter);
+
+  const dispatch = useDispatch();
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(input.toLowerCase())
+  );
+  console.log(filteredContacts);
+
   return (
     <UserList>
-      {filter.map(({ name, number, id }) => (
+      {filteredContacts.map(({ name, number, id }) => (
         <UserName key={id}>
           <span>
             {name}:{number}
           </span>
-          <button type="button" onClick={() => onDeleteItem(id)}>
+          <button type="button" onClick={() => dispatch(removeContact(id))}>
             Delete
           </button>
         </UserName>
@@ -32,5 +41,4 @@ User.propTypes = {
       number: propTypes.string.isRequired,
     })
   ),
-  onDeleteItem: propTypes.func.isRequired,
 };

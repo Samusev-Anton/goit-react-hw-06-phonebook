@@ -2,55 +2,15 @@
 import Form2 from './Form/Form2';
 import User from './User/User';
 import { Filter } from './Filter/Filter';
-import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const savedContacts = localStorage.getItem('contacts');
-    if (savedContacts !== null) {
-      const parcedContacts = JSON.parse(savedContacts);
-      return parcedContacts;
-    }
-    return [];
-  });
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const formSubmitHandler = data => {
-    const checkContact = contacts.some(
-      contact => contact.name.toLowerCase() === data.name.toLowerCase()
-    );
-
-    return checkContact
-      ? alert('такое имя уже есть')
-      : setContacts([...contacts, data]);
-  };
-
-  const hendlerFilterChange = inputSearch => {
-    setFilter(inputSearch);
-    filteredName();
-  };
-
-  const filteredName = () => {
-    const filterName = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-    return filterName;
-  };
-
-  const deleteitem = id => {
-    console.log(id);
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
-  };
-
-  // console.log(this.state.contacts);
+  const contacts = useSelector(state => state.contacts);
+  console.log(contacts);
   return (
     <div
       style={{
-        width: '500px',
+        width: '600px',
         padding: '20px',
         margin: '0 auto',
         justifyContent: 'center',
@@ -62,14 +22,10 @@ export const App = () => {
       }}
     >
       <h1 style={{ textAlign: 'center' }}>Phonebook</h1>
-      <Form2 onSubmit={formSubmitHandler} />
+      <Form2 />
       <h2 style={{ textAlign: 'center' }}>Contacts</h2>
-      <User
-        events={contacts}
-        filter={filteredName()}
-        onDeleteItem={deleteitem}
-      />
-      <Filter onInput={hendlerFilterChange} />
+      {contacts && <User />}
+      <Filter />
     </div>
   );
 };

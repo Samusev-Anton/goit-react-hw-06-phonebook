@@ -1,15 +1,17 @@
 import React from 'react';
-import { useState } from 'react';
 import { InputStyle } from './Filter.styled';
-// import propTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFilter } from './filterSlice';
 
-export const Filter = ({ onInput }) => {
-  const [input, setInput] = useState('');
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const input = useSelector(state => state.filter);
+  // const contacts = useSelector(state => state.contacts);
+  // console.log(input);
 
   const handleInputChange = event => {
     const inputData = event.currentTarget.value;
-    setInput(inputData);
-    onInput(inputData);
+    dispatch(addFilter(inputData));
   };
 
   return (

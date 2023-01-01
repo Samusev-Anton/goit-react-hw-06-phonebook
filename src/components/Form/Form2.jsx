@@ -2,10 +2,14 @@ import React from 'react';
 import { InputStyle, Submit } from './Form.styled';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from './formSlice';
 
-const Form2 = ({ onSubmit }) => {
+const Form2 = () => {
   const [user, setUser] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const existContacts = useSelector(state => state.contacts);
 
   const handleInputChange = event => {
     console.log(event.currentTarget.name);
@@ -25,15 +29,25 @@ const Form2 = ({ onSubmit }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const contact = {
+    const newContact = {
       id: nanoid(),
       name: user,
       number: number,
     };
-
-    onSubmit(contact);
+    formSubmitHandler(newContact);
 
     reset();
+  };
+
+  const formSubmitHandler = newContact => {
+    const checkContact = existContacts.some(
+      existContact =>
+        existContact.name.toLowerCase() === newContact.name.toLowerCase()
+    );
+
+    return checkContact
+      ? alert('такое имя уже есть')
+      : dispatch(addContact(newContact));
   };
 
   const reset = () => {
