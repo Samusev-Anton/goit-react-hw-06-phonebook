@@ -1,9 +1,9 @@
 import React from 'react';
-import { InputStyle, Submit } from './Form.styled';
+import { InputStyle, Submit, FormBox, Input } from './Form.styled';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from './formSlice';
+import { addContact } from '../../redux/formSlice';
 
 const Form2 = () => {
   const [user, setUser] = useState('');
@@ -12,7 +12,7 @@ const Form2 = () => {
   const existContacts = useSelector(state => state.contacts);
 
   const handleInputChange = event => {
-    console.log(event.currentTarget.name);
+    // console.log(event.currentTarget.name);
     const { name, value } = event.currentTarget;
     switch (name) {
       case 'user':
@@ -57,13 +57,14 @@ const Form2 = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <FormBox onSubmit={handleSubmit}>
         <InputStyle htmlFor="">
           Name
-          <input
+          <Input
             type="text"
             value={user}
             name="user"
+            placeholder="Name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -72,10 +73,11 @@ const Form2 = () => {
         </InputStyle>
         <InputStyle htmlFor="">
           Number
-          <input
+          <Input
             type="tel"
             value={number}
             name="number"
+            placeholder="Phone number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
@@ -84,7 +86,7 @@ const Form2 = () => {
         </InputStyle>
 
         <Submit type="submit">Add contacts</Submit>
-      </form>
+      </FormBox>
     </>
   );
 };

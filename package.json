@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-05-phonebook",
+  "name": "goit-react-hw-06-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://samusev-anton.github.io/goit-react-hw-05-phonebook/",
+  "homepage": "https://samusev-anton.github.io/goit-react-hw-06-phonebook/",
   "dependencies": {
     "@emotion/styled": "^11.10.5",
     "@redux-devtools/extension": "^3.2.3",
@@ -12,7 +12,9 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
