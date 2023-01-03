@@ -19,8 +19,9 @@ import {
 } from 'redux-persist';
 
 const persistConfig = {
-  key: 'contacts',
+  key: 'root',
   storage,
+  whitelist: ['contacts'],
 };
 
 const rootReduser = combineReducers({

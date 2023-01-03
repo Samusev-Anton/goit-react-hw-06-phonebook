@@ -8,7 +8,7 @@ import { AiFillPhone, AiFillSmile } from 'react-icons/ai';
 const User = () => {
   const contacts = useSelector(state => state.contacts);
   const input = useSelector(state => state.filter);
-  console.log({ contacts });
+  // console.log({ contacts });
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(contact =>
